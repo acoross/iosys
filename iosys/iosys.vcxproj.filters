@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="IoService">
+      <UniqueIdentifier>{5d8fceaf-885f-4057-a6d9-fb09ecedd10f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{5378c4b4-cbdb-4808-8e9f-b0ded012df6c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="IoService\IoService.h">
+      <Filter>IoService</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\impl\Listner.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\impl\Session.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\impl\Network.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="memory.h" />
+    <ClInclude Include="WindowsHeader.h" />
+    <ClInclude Include="Network\Network.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="IoService\IoService.cpp">
+      <Filter>IoService</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\impl\Listner.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="readme.txt" />
+  </ItemGroup>
+</Project>
