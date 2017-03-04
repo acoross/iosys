@@ -124,6 +124,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="IoService\IoService.h" />
+    <ClInclude Include="Message\MessageSerializer.h" />
+    <ClInclude Include="Network\impl\Buffer.h" />
     <ClInclude Include="Network\impl\Listener.h" />
     <ClInclude Include="memory.h" />
     <ClInclude Include="Network\impl\Network.h" />
@@ -138,6 +140,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Network\impl\Session.inc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

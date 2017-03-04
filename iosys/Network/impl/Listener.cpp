@@ -4,12 +4,12 @@
 
 namespace ash
 {
-	Listener::Listener(IoWorker & iow, AcceptCbT cb, int acceptCount)
+	Listener::Listener(NetworkService & iow, AcceptCbT cb, int acceptCount)
 		: _iow(iow)
 	{
 		for (int i = 0; i < acceptCount; ++i)
 		{
-			_acceptTasks.emplace_back(NewShared<AcceptTask>(*this, cb, true));
+			_acceptTasks.emplace_back(NewShared<AcceptTask>(*this, cb, true, i));
 		}
 	}
 
@@ -56,9 +56,7 @@ namespace ash
 	{
 		_sock = ::socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
-		char buf[1024];
-		DWORD dwRecv;
-		if (!::AcceptEx(_listener._listenSocket, _sock, buf, 0, sizeof(SOCKADDR_IN) + 16, sizeof(SOCKADDR_IN) + 16, &dwRecv, &overlapped))
+		if (!::AcceptEx(_listener._listenSocket, _sock, _buf, 0, sizeof(SOCKADDR_IN) + 16, sizeof(SOCKADDR_IN) + 16, &_dwRecv, &overlapped))
 		{
 			auto err = ::WSAGetLastError();
 			if (err != ERROR_IO_PENDING)
@@ -68,19 +66,17 @@ namespace ash
 		}
 	}
 
-	void AcceptTask::Run()
+	void AcceptTask::Run(DWORD)
 	{
 		OnAccept();
 	}
 
 	void AcceptTask::OnAccept()
 	{
-		printf("socket connected\n");
-
-		auto session = NewShared<Session>(_sock);
+		printf("acceptTask(%d), dwRecv(%d), socket connected\n", _num, _dwRecv);
+		
+		_cb(_sock, 0);
 		_sock = INVALID_SOCKET;
-
-		_cb(session, 0);
 
 		BeginAccept();
 	}

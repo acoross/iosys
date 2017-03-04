@@ -3,12 +3,12 @@
 
 namespace ash
 {
-	IoWorker::IoWorker()
+	NetworkService::NetworkService()
 	{
 		_iocp = ::CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, 1);
 	}
 
-	IoWorker::~IoWorker()
+	NetworkService::~NetworkService()
 	{
 		if (_iocp != INVALID_HANDLE_VALUE)
 		{
@@ -17,7 +17,7 @@ namespace ash
 		}
 	}
 	
-	void IoWorker::Run()
+	void NetworkService::ProcessIo()
 	{
 		for (;;)
 		{
@@ -29,8 +29,8 @@ namespace ash
 
 			if (ret)
 			{
-				auto* overlappedExt = static_cast<OverlappedExt*>(overlapped);
-				overlappedExt->task->Run();
+				auto* overlappedExt = reinterpret_cast<OverlappedExt*>(overlapped);
+				overlappedExt->task->Run(dwNumBytes);
 				if (!overlappedExt->task->IsStatic)
 				{
 					delete overlapped;

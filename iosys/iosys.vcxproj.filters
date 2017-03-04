@@ -30,6 +30,8 @@
     <ClInclude Include="Network\impl\Listener.h">
       <Filter>Network</Filter>
     </ClInclude>
+    <ClInclude Include="Network\impl\Buffer.h" />
+    <ClInclude Include="Message\MessageSerializer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -42,5 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Network\impl\Session.inc" />
   </ItemGroup>
 </Project>
