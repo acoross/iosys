@@ -13,7 +13,7 @@ namespace ash
 			: _sock(sock)
 		{}
 
-		void Send()
+		void Read()
 		{}
 
 	private:

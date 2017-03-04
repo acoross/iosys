@@ -6,10 +6,10 @@ int main()
 	ash::IoWorker iow;
 	ash::Network::Initialize();
 
-	ash::Listener listener(iow, [&](SOCKET s, int error)
+	ash::Listener listener(iow, [&](ash::SPtr<ash::Session> session, int error)
 	{
 		printf("error %d\n", error);
-	});
+	}, 10);
 
 	listener.Listen(7777);
 	iow.Run();

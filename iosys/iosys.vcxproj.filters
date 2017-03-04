@@ -16,9 +16,6 @@
     <ClInclude Include="IoService\IoService.h">
       <Filter>IoService</Filter>
     </ClInclude>
-    <ClInclude Include="Network\impl\Listner.h">
-      <Filter>Network</Filter>
-    </ClInclude>
     <ClInclude Include="Network\impl\Session.h">
       <Filter>Network</Filter>
     </ClInclude>
@@ -30,13 +27,16 @@
     <ClInclude Include="Network\Network.h">
       <Filter>Network</Filter>
     </ClInclude>
+    <ClInclude Include="Network\impl\Listener.h">
+      <Filter>Network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="IoService\IoService.cpp">
       <Filter>IoService</Filter>
     </ClCompile>
-    <ClCompile Include="Network\impl\Listner.cpp">
+    <ClCompile Include="Network\impl\Listener.cpp">
       <Filter>Network</Filter>
     </ClCompile>
   </ItemGroup>

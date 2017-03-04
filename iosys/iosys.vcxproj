@@ -124,7 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="IoService\IoService.h" />
-    <ClInclude Include="Network\impl\Listner.h" />
+    <ClInclude Include="Network\impl\Listener.h" />
     <ClInclude Include="memory.h" />
     <ClInclude Include="Network\impl\Network.h" />
     <ClInclude Include="Network\Network.h" />
@@ -133,7 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="IoService\IoService.cpp" />
-    <ClCompile Include="Network\impl\Listner.cpp" />
+    <ClCompile Include="Network\impl\Listener.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

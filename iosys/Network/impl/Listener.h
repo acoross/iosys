@@ -4,13 +4,17 @@
 #include "WindowsHeader.h"
 #include <functional>
 #include "IoService/IoService.h"
+#include "Session.h"
+#include <vector>
 
 namespace ash
 {
+	typedef std::function<void(SPtr<Session>, int /*err*/)> AcceptCbT;
+
 	class Listener
 	{
 	public:
-		Listener(IoWorker& iow, std::function<void(SOCKET, int /*err*/)> cb);
+		Listener(IoWorker& iow, AcceptCbT cb, int acceptCount);
 		void Listen(short port);
 
 	private:
@@ -18,7 +22,7 @@ namespace ash
 
 		IoWorker& _iow;
 		SOCKET _listenSocket{ INVALID_SOCKET };
-		class AcceptTask* _acceptTask;
+		std::vector<SPtr<class AcceptTask>> _acceptTasks;
 
 		friend class AcceptTask;
 	};
@@ -26,9 +30,11 @@ namespace ash
 	class AcceptTask : public IOverlappedTask
 	{
 	public:
-		AcceptTask(Listener& listener, std::function<void(SOCKET, int /*err*/)> cb)
+		AcceptTask(Listener& listener, AcceptCbT cb, bool isStatic)
 			: _listener(listener), _cb(cb)
-		{}
+		{
+			IsStatic = isStatic;
+		}
 
 		void BeginAccept();
 		virtual void Run() override;
@@ -37,7 +43,7 @@ namespace ash
 		void OnAccept();
 
 		SOCKET _sock{ INVALID_SOCKET };
-		std::function<void(SOCKET, int /*err*/)> _cb;
+		AcceptCbT _cb;
 		Listener& _listener;
 	};
 }
