@@ -3,31 +3,40 @@
 #include "Network\impl\Buffer.h"
 #include "Message\MessageSerializer.h"
 
+#include "ClientToTestServer.h"
+
 using namespace ash;
 
-class TestMsg
+class TestSessionHandler
+	: public ash::ISessionHandler, 
+	public Test::ClientToTestServer
 {
 public:
-	int i;
-	std::string name;
-
-	template<class Arc>
-	void serialize(Arc& arc)
+	TestSessionHandler()
 	{
-		arc(i, name);
-	}
-};
+		_handlers.push_back([&](Buffer& buf, DWORD msgLength)
+		{
+			MessageSerializer ms;
+			DWORD processed;
+			Test::TestMsg msg;
+			ms.Deserialize(buf.Raw + 2, buf.Offset - 2, processed, msg);
+			if (msgLength != processed + 2)
+			{
+				throw new std::exception();
+			}
 
-class TestSessionHandler : public ash::ISessionHandler
-{
-public:
+			Process(msg);
+		});
+	}
+
 	virtual void ProcessMessage(SPtr<SessionBase> session, Buffer& buf, DWORD msgLength) override
 	{
 		printf("testsessionhandler!\n");
 
 		MessageSerializer ms;
 		DWORD processed;
-		TestMsg msg;
+		
+		Test::TestMsg msg;
 
 		ms.Deserialize(buf.Raw + 2, buf.Offset - 2, processed, msg);
 		if (msgLength != processed + 2)
@@ -36,6 +45,18 @@ public:
 		}
 
 		printf("msg: {%d, %s}\n", msg.i, msg.name.c_str());
+	}
+
+	std::vector<std::function<void(Buffer&, DWORD)>> _handlers;
+
+	// ClientToTestServer을(를) 통해 상속됨
+	virtual void Process(Test::TestMsg& msg) override
+	{
+	}
+
+	// ClientToTestServer을(를) 통해 상속됨
+	virtual void Process(Test::TestMsg2 & msg) override
+	{
 	}
 };
 

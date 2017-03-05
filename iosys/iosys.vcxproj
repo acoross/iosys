@@ -124,6 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="IoService\IoService.h" />
+    <ClInclude Include="ClientToTestServer.h" />
     <ClInclude Include="Message\MessageSerializer.h" />
     <ClInclude Include="Network\impl\Buffer.h" />
     <ClInclude Include="Network\impl\Listener.h" />
